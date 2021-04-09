@@ -14,7 +14,7 @@ const Hero = () => {
         </div>
         <h1>Hi, I'm Andrei</h1>
         <p>
-            My blog is about web development trends and techniques
+            Welcome to my blog about think tanks and their connections
         </p>
     </section>    
 }
