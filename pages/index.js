@@ -30,6 +30,34 @@ const DUMMY_POSTS = [
         image:'_Phillip.jpg',
         excerpt:'If I were reincarnated, I would wish to be returned to Earth as a killer virus to lower human population levels.', 
         date: '04-09-2021'
+    },
+    {
+        slug:'prince-phillip-4',
+        title:'Burn in Hell',
+        image:'_Phillip.jpg',
+        excerpt:'If I were reincarnated, I would wish to be returned to Earth as a killer virus to lower human population levels.', 
+        date: '04-09-2021'
+    },
+    {
+        slug:'prince-phillip-5',
+        title:'Burn in Hell',
+        image:'_Phillip.jpg',
+        excerpt:'If I were reincarnated, I would wish to be returned to Earth as a killer virus to lower human population levels.', 
+        date: '04-09-2021'
+    },
+    {
+        slug:'prince-phillip-6',
+        title:'Burn in Hell',
+        image:'_Phillip.jpg',
+        excerpt:'If I were reincarnated, I would wish to be returned to Earth as a killer virus to lower human population levels.', 
+        date: '04-09-2021'
+    },
+    {
+        slug:'prince-phillip-7',
+        title:'Burn in Hell',
+        image:'_Phillip.jpg',
+        excerpt:'If I were reincarnated, I would wish to be returned to Earth as a killer virus to lower human population levels.', 
+        date: '04-09-2021'
     }
 ]
 
