@@ -2,72 +2,27 @@ import { Fragment } from 'react'
 import Hero from '../components/home-page/Hero'
 import FeaturedPosts from '../components/home-page/FeaturedPosts'
 
-const DUMMY_POSTS = [
-    {
-        slug:'prince-phillip',
-        title:'Burn in Hell',
-        image:'_Phillip.jpg',
-        excerpt:'If I were reincarnated, I would wish to be returned to Earth as a killer virus to lower human population levels.', 
-        date: '04-09-2021'
-    },
-    {
-        slug:'prince-phillip-1',
-        title:'Burn in Hell',
-        image:'_Phillip.jpg',
-        excerpt:'If I were reincarnated, I would wish to be returned to Earth as a killer virus to lower human population levels.', 
-        date: '04-09-2021'
-    },
-    {
-        slug:'prince-phillip-2',
-        title:'Burn in Hell',
-        image:'_Phillip.jpg',
-        excerpt:'If I were reincarnated, I would wish to be returned to Earth as a killer virus to lower human population levels.', 
-        date: '04-09-2021'
-    },
-    {
-        slug:'prince-phillip-3',
-        title:'Burn in Hell',
-        image:'_Phillip.jpg',
-        excerpt:'If I were reincarnated, I would wish to be returned to Earth as a killer virus to lower human population levels.', 
-        date: '04-09-2021'
-    },
-    {
-        slug:'prince-phillip-4',
-        title:'Burn in Hell',
-        image:'_Phillip.jpg',
-        excerpt:'If I were reincarnated, I would wish to be returned to Earth as a killer virus to lower human population levels.', 
-        date: '04-09-2021'
-    },
-    {
-        slug:'prince-phillip-5',
-        title:'Burn in Hell',
-        image:'_Phillip.jpg',
-        excerpt:'If I were reincarnated, I would wish to be returned to Earth as a killer virus to lower human population levels.', 
-        date: '04-09-2021'
-    },
-    {
-        slug:'prince-phillip-6',
-        title:'Burn in Hell',
-        image:'_Phillip.jpg',
-        excerpt:'If I were reincarnated, I would wish to be returned to Earth as a killer virus to lower human population levels.', 
-        date: '04-09-2021'
-    },
-    {
-        slug:'prince-phillip-7',
-        title:'Burn in Hell',
-        image:'_Phillip.jpg',
-        excerpt:'If I were reincarnated, I would wish to be returned to Earth as a killer virus to lower human population levels.', 
-        date: '04-09-2021'
-    }
-]
+import { getFeaturedPosts } from '../lib/posts-util'
 
-function HomePage() {
+
+function HomePage(props) {
     return (
         <Fragment>
             <Hero />
-            <FeaturedPosts posts={DUMMY_POSTS}/>
+            <FeaturedPosts posts={props.posts}/>
         </Fragment>
     )
+}
+
+export function getStaticProps(){
+    const featuredPosts = getFeaturedPosts()
+
+    return {
+        props: {
+            posts: featuredPosts
+        },
+        revalidate: 1800
+    }
 }
 
 export default HomePage
