@@ -12,8 +12,8 @@ const PostHeader = (props) => {
                 className={classes.img}
                 src={image}
                 alt={title}
-                width={450}
-                height={300}
+                width={360}
+                height={240}
             />
         </header>
     )
