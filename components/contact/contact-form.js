@@ -1,29 +1,91 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import classes from './contact-form.module.css'
+import Notification from '../ui/notification'
 
 const ContactForm = () => {
     const [enteredEmail, setEnteredEmail] = useState('')
     const [enteredName, setEnteredName] = useState('')
     const [enteredMessage, setEnteredMessage] = useState('')
+    const [reqStatus, setReqStatus] = useState() //pending-success-error
+    const [reqError, setReqError] = useState()
     
-    const sendMessageHandler = (e) => {
-        e.preventDefault()
+    useEffect(()=>{
+        if (reqStatus !== ''){
+            const timer = setTimeout(()=> {
+                setReqStatus(null)
+                setReqError(null)
+            }, 3000)
 
-        fetch('/api/contact', {
+            return () => clearTimeout(timer)
+        }
+    }, [reqStatus])
+
+    async function sendContactData(contactDetails){
+        const response = await fetch('/api/contact', {
             method: 'POST',
-            body: JSON.stringify({
-                email: enteredEmail,
-                name: enteredName,
-                message: enteredMessage
-            }),
+            body: JSON.stringify(contactDetails),
             headers: {
                 'Content-Type': 'application/json'
             }
         })
 
+        const data = await response.json()
+
+        if (!response.ok) {
+            throw new Error(data.message || 'Something went wrong!')
+        }        
+    }
+
+    const sendMessageHandler = async (e) => {
+        e.preventDefault()
+
+        setReqStatus('pending')
+
+        try {
+            await sendContactData({
+                email: enteredEmail,
+                name: enteredName,
+                message: enteredMessage
+            })
+            setReqStatus('success') 
+            setEnteredEmail('')  
+            setEnteredMessage('')         
+            setEnteredName('')
+        } catch(error){
+            setReqError(error.message)
+            setReqStatus('error')    
+        }
+
+    }
+
+    let notification
+
+    if (reqStatus === 'pending'){
+        notification = {
+            status: 'pending',
+            title: 'Sending message...',
+            message: 'Your message is on its way!'
+        }
+    }
+
+    if (reqStatus === 'success'){
+        notification = {
+            status: 'success',
+            title: 'Success!',
+            message: 'Message is sent successfully!'
+        }
+    }
+
+    if (reqStatus === 'error'){
+        notification = {
+            status: 'error',
+            title: 'Error!',
+            message: reqError
+        }
     }
     
-    return <section className={classes.contact}>
+    return (
+    <section className={classes.contact}>
         <h1>Ask your questions</h1>
         <form className={classes.form} onSubmit={sendMessageHandler}>
             <div className={classes.controls}>
@@ -59,7 +121,14 @@ const ContactForm = () => {
                 <button>Send</button>
             </div>
         </form>
+        {notification && (
+            <Notification 
+                status={notification.status}
+                title={notification.title}
+                message={notification.message}
+        />)}
     </section>
+    )
 }
 
 export default ContactForm
