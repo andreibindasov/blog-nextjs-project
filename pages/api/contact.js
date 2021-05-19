@@ -24,8 +24,10 @@ async function handler(req, res) {
 
     let client
 
+    const connectionString = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_SECRET}@${process.env.MONGODB_CLUSTERNAME}.cx3nb.mongodb.net/${process.env.MONGODB_DATABASE}?retryWrites=true&w=majority`
+
     try {
-      client = await MongoClient.connect(`mongodb+srv://andrei:${process.env.DB_SECRET}@cluster0.cx3nb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`, 
+      client = await MongoClient.connect(connectionString, 
                       {useNewUrlParser: true, useUnifiedTopology: true})      
     } catch(error) {
       console.log(error)
